@@ -1,6 +1,6 @@
 ## Seting up the project
 
-The app is a simple todo app with the basic CRUD endpoints. Below is how to set upt the appliation locally.
+The app is a simple todo app with the basic CRUD endpoints. Below is how to set upt the appliation on your local machine.
 
 - Clone the  project
 - Go to the folder application using cd command on your cmd or terminal
