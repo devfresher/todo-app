@@ -23,6 +23,5 @@ Route::get('tasks', [TodoController::class, 'showAll']);
 Route::post('create-task', [TodoController::class, 'create']);
 Route::put('task/{id}', [TodoController::class, 'update']);
 Route::put('complete/{id}', [TodoController::class, 'done']);
-Route::put('incomplete/{id}', [TodoController::class, 'undone']);
 Route::get('task/{id}', [TodoController::class, 'show']);
 Route::delete('task/{id}', [TodoController::class, 'remove']);
