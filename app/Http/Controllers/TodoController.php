@@ -42,7 +42,6 @@ class TodoController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'name' => "required",
-            'description' => "required",
         ]);
 
         if ($validation->fails()) {
@@ -76,7 +75,6 @@ class TodoController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'name' => "required",
-            'description' => "required",
         ]);
 
         if ($validation->fails()) {
