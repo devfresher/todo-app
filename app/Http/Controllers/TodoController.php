@@ -42,7 +42,6 @@ class TodoController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'name' => "required",
-            'description' => "required",
         ]);
 
         if ($validation->fails()) {
@@ -76,7 +75,6 @@ class TodoController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'name' => "required",
-            'description' => "required",
         ]);
 
         if ($validation->fails()) {
@@ -125,47 +123,24 @@ class TodoController extends Controller
         }
     }
 
-    public function done($id)
+    public function done(Request $request)
     {
-        $theTask = Task::find($id);
-        if ($theTask != null) {
-            $markedDone = Task::where("id", $id)->update(["status" => 1]);
-            if ($markedDone != null) {
-                $response = [
-                    "status" => 200,
-                    "success" => [
-                        "msg" => "Task completed",
-                    ]
-                ];
-            } else {
-                $response = [
-                    "status" => 500,
-                    "error" => [
-                        "msg" => "Failed",
-                    ]
-                ];
-            }
+        $validation = Validator::make($request->all(), [
+            'status' => "required|boolean",
+        ]);
 
-            return response()->json($response)->setStatusCode(200);
-        } else {
-            return response()->json([
-                "error" => [
-                    "msg" => "Not found",
-                ]
-            ])->setStatusCode(404);
+        if ($validation->fails()) {
+            return response()->json(["validation_errors" => $validation->errors()])->setStatusCode(400);
         }
-    }
 
-    public function undone($id)
-    {
-        $theTask = Task::find($id);
+        $theTask = Task::find($request->id);
         if ($theTask != null) {
-            $markedDone = Task::where("id", $id)->update(["status" => 0]);
+            $markedDone = Task::where("id", $request->id)->update(["status" => $request->status]);
             if ($markedDone != null) {
                 $response = [
                     "status" => 200,
                     "success" => [
-                        "msg" => "Task uncompleted",
+                        "msg" => ($request->status == true) ? "Task completed":"Task Uncompleted",
                     ]
                 ];
             } else {
